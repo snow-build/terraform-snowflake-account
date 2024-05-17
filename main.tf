@@ -11,6 +11,6 @@ resource "snowflake_warehouse" "all_warehouses" {
   for_each       = { for idx, wh in var.warehouses : wh.name => wh }
   name           = each.value.name
   warehouse_size = each.value.warehouse_size
-  comment        = lookup(each.value, "comment", "")
+  comment        = can(each.value.comment) ? each.value.comment : null
 }
 
